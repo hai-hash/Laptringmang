@@ -1,0 +1,8 @@
+TCP Socket
+- Byte			OutputStream/InputStream
+- character		BufferedWriter/BufferedReader
+- Data			DataInputStream/DataOutputStream
+- Object		ObjectInputStream/ObjectOutputStream
+UDP Socket
+- Data
+- Object

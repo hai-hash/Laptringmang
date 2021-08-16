@@ -1,0 +1,74 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package TH2UDP;
+
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.SocketException;
+import java.net.UnknownHostException;
+
+/**
+ *
+ * @author Admin
+ */
+public class Client2 {
+    public static void main(String[] args) throws UnknownHostException, SocketException {
+        System.out.println("clent");
+        int port=1108;
+        InetAddress ip=InetAddress.getByName("localhoast");
+        byte []data;
+        DatagramSocket socket=new DatagramSocket();
+        DatagramPacket packet;
+        try {
+            String s="B17DCCN079;101";
+            data=s.getBytes();
+            packet=new DatagramPacket(data,data.length,ip,port);
+            socket.send(packet);
+            
+            data=new byte[1024];
+            packet=new DatagramPacket(data, data.length);
+            socket.receive(packet);
+            String s1=new String(packet.getData(),0,packet.getLength());
+            System.out.println(s1);
+            String[] s2=new String[2];
+            s2=s1.split(";");
+            String s3=s2[0];
+            String s4=s2[1];
+            System.out.println("Req:"+s3);
+            System.out.println("String:"+s4);
+            System.out.println(KiTu(s4));
+            System.out.println(KiTuDB(s4));
+            
+            socket.close();
+        } catch (Exception e) {
+            System.err.println("err:"+e);
+        }
+        
+    }
+    public static String KiTu(String s4){
+        char []c=s4.toCharArray();
+        String s="";
+        for (int i = 0; i < c.length; i++) {
+            int k=(int)c[i];
+            if((k>=48&&k<=57)||(k>=65&&k<=90)||(k>=97&&k<=122)){
+                s+=c[i];
+            }
+        }
+        return s;
+    }
+    public static String KiTuDB(String s4){
+        char []c=s4.toCharArray();
+        String s="";
+        for (int i = 0; i < c.length; i++) {
+            int k=(int)c[i];
+            if((k>=0&&k<=47)||(k>=58&&k<=64)||(k>=91&&k<=96)||(k>=123&&k<=127)){
+                s+=c[i];
+            }
+        }
+        return s;
+    }
+}

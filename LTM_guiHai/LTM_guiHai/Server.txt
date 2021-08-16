@@ -1,0 +1,49 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package TH1UDP;
+
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.SocketException;
+
+/**
+ *
+ * @author Admin
+ */
+public class Server1 {
+     public static void main(String[] args) throws SocketException {
+         int port=1107;
+         DatagramSocket socket=new DatagramSocket(port);
+         DatagramPacket packet;
+         byte[] data;
+         System.out.println("Server....");
+        try {
+            data=new byte[1024];
+            packet=new DatagramPacket(data, data.length);
+            socket.receive(packet);
+            String s=new String(packet.getData(),0,packet.getLength());
+            System.out.println("Nhan tu client:"+s);
+            
+            String s1="1678;24,16";
+            data=s1.getBytes();
+            packet=new DatagramPacket(data, data.length,packet.getAddress(),packet.getPort());
+            socket.send(packet);
+            
+            data=new byte[1024];
+            packet=new DatagramPacket(data, data.length);
+            socket.receive(packet);
+            String s3=new String(packet.getData(),0,packet.getLength());
+            System.out.println("Nhan tu client:"+s3);
+            
+            socket.close();
+        } catch (Exception e) {
+            System.err.println("loi:"+e);
+        }
+    }
+     
+    
+    
+}
